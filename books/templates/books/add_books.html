@@ -1,0 +1,57 @@
+{% extends 'books/index.html' %}
+
+{% block content %}
+
+
+{% if message %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+ <center><strong>{{message}}</strong></center>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="card">
+  <div class="card-header">
+    Add New Books
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <div class="card-text">
+        <form method="post" autocomplete="off">
+        {% csrf_token %}
+                <div class="form-row">
+                    {% for field in form %}
+                    <div class="form-group col-md-3">
+                        <label for="start">{{field.label}}</label>
+                        {{field}}
+                    </div>
+                    {% endfor %}
+                </div>
+
+        <button class="btn btn-primary" id="btn_submit" type="submit">Save</button>
+        </form>
+  </div>
+  </div>
+</div>
+
+
+<script>
+$('form').find(':input,:radio,:checkbox').addClass('form-control');
+$('#btn_submit').removeClass('form-control');
+
+$('#id_Publish_Date').addClass('datepicker');
+$('#id_Create_On').addClass('datepicker');
+
+
+// datepicker
+$(function () {
+$(".datepicker").datepicker({"dateFormat": "yy-mm-dd",
+    autoclose: true,
+    todayHighlight: true
+}).datepicker('update', new Date());
+});
+</script>
+
+{% endblock %}
